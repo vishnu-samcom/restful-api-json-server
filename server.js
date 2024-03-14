@@ -18,6 +18,34 @@ server.use(
     })
 );
 
+// POST route
+server.post("/api/notes", (req, res) => {
+    const newPost = req.body;
+    // Create a new post
+    // Example logic:
+    db.posts.create(newPost);
+    res.status(201).json(newPost);
+});
+
+// Update route
+server.put("/api/notes/:id", (req, res) => {
+    const { id } = req.params;
+    const updatedPost = req.body;
+    // Update the post with the given id
+    // Example logic:
+    db.posts.updateById(id, updatedPost);
+    res.status(200).json(updatedPost);
+});
+
+// Delete route
+server.delete("/api/notes/:id", (req, res) => {
+    const { id } = req.params;
+    // Delete the post with the given id
+    // Example logic:
+    db.posts.deleteById(id);
+    res.status(204).end();
+});
+
 server.use(router);
 
 const PORT = process.env.PORT || 3000;
